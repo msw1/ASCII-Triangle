@@ -3,7 +3,7 @@ import Shortener
 
 -- This function returns an ASCII triangle.
 printTriangle :: Int -> Int -> Int -> Int -> String
-printTriangle heightInput heightCounter amountToIndent triangleWidth
+printTriangle heightInput heightCounter amountToIndent triangleWidth =
     if heightCounter <= heightInput
         then "\n" 
           ++ " " `repeatTimes` newIndent 
