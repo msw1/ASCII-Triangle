@@ -3,28 +3,28 @@ import Shortener
 
 -- This function returns an ASCII triangle.
 printTriangle :: Int -> Int -> Int -> Int -> String
-printTriangle heightInput heightCounter amountToIndent triangleWidth =
-    if heightCounter <= heightInput
+printTriangle height counter indent width =
+    if counter <= height
         then "\n" 
           ++ " " `repeatTimes` newIndent 
-          ++ "`" `repeatTimes` triangleWidth 
-          ++ printTriangle heightInput incCounter incIndent incWidth
+          ++ "`" `repeatTimes` width 
+          ++ printTriangle height incCounter incIndent incWidth
         else ""
       where
-        newIndent  = doEitherIf (id) (subtract final) (heightInput > 0) amountToIndent
-        incIndent  = doEitherIf (+1) (subtract 1)     (heightInput < 0) amountToIndent
-        incWidth   = doEitherIf (+2) (subtract 2)     (heightInput > 0) triangleWidth
-        incCounter = heightCounter + 1
+        newIndent  = doEitherIf (id) (subtract a) (height > 0) indent
+        incIndent  = doEitherIf (+1) (subtract 1) (height < 0) indent
+        incWidth   = doEitherIf (+2) (subtract 2) (height > 0) width
+        incCounter = counter + 1
         -- Subtract for every time we're going to add to the indent.
-        final      = abs(heightInput) - 1
+        a          = abs(height) - 1
 
 -- This function creates the triangle's variables.
 triangle :: Int -> Int -> String
-triangle heightInput termWidth
+triangle height termWidth
     -- If the width would overflow, use the max that won't.
-    | abs heightInput > halfTermWidth = triangle newHeight termWidth
-    | otherwise = printTriangle heightInput 1 halfTermWidth triangleWidth
+    | abs height > halfTermWidth = triangle newHeight termWidth
+    | otherwise = printTriangle height 1 halfTermWidth width
       where
         halfTermWidth = termWidth `div` 2
-        triangleWidth = if heightInput > 0 then 1 else (-heightInput) * 2 - 1
-        newHeight     = doEitherIf (id) (negate) (heightInput > 0) halfTermWidth
+        width         = if heightInput > 0 then 1 else (-height) * 2 - 1
+        newHeight     = doEitherIf (id) (negate) (height > 0) halfTermWidth
