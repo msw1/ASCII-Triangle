@@ -9,8 +9,7 @@ main = do
     triangleSize <- getArgs
     let heightInput = filter(\x -> isNumber x || x == '-') . concat $ triangleSize in
         if not $ null heightInput && heightInput /= "-"
-            then do 
-                triangle (read heightInput) (snd termSize)
-                putStr "\n"
+            then
+                putStrLn $ triangle (read heightInput) (snd termSize)
             else
                 putStrLn "Please enter an integer value."
