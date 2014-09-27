@@ -2,13 +2,13 @@ module Triangle (triangle) where
 import Shortener
 
 -- This function returns an ASCII triangle.
-printTriangle :: Int -> Int -> Int -> Int -> String
-printTriangle height counter indent width =
+makeTriangle :: Int -> Int -> Int -> Int -> String
+makeTriangle height counter indent width =
     if counter <= height
         then "\n" 
           ++ " " `repeatTimes` newIndent 
           ++ "`" `repeatTimes` width 
-          ++ printTriangle height incCounter incIndent incWidth
+          ++ makeTriangle height incCounter incIndent incWidth
         else ""
       where
         newIndent  = doEitherIf (id) (subtract a) (height > 0) indent
@@ -23,7 +23,7 @@ triangle :: Int -> Int -> String
 triangle height termWidth
     -- If the width would overflow, use the max that won't.
     | abs height > halfTermWidth = triangle newHeight termWidth
-    | otherwise = printTriangle height 1 halfTermWidth width
+    | otherwise = makeTriangle height 1 halfTermWidth width
       where
         halfTermWidth = termWidth `div` 2
         width         = if heightInput > 0 then 1 else (-height) * 2 - 1
