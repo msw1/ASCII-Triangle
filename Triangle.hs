@@ -1,6 +1,5 @@
 module Triangle (triangle) where
 import Shortener
-
 -- This function returns an ASCII triangle.
 makeTriangle :: Int -> Int -> Int -> Int -> String
 makeTriangle height counter indent width =
@@ -23,8 +22,9 @@ triangle :: Int -> Int -> String
 triangle height termWidth
     -- If the width would overflow, use the max that won't.
     | abs height > halfTermWidth = triangle newHeight termWidth
-    | otherwise = makeTriangle height 1 halfTermWidth width
+    | otherwise = makeTriangle height counter halfTermWidth width
       where
         halfTermWidth = termWidth `div` 2
-        width         = if heightInput > 0 then 1 else (-height) * 2 - 1
-        newHeight     = doEitherIf (id) (negate) (height > 0) halfTermWidth
+        width         = if height > 0 then 1 else (-height) * 2 - 1
+        newHeight     = doEitherIf (id) (negate)    (height > 0) halfTermWidth
+        counter       = doEitherIf (+1) (+height*2) (height > 0) 0
